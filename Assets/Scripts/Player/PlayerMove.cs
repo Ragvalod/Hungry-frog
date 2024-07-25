@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     private PlayerInput _playerInput; //inputSystem
     private Rigidbody _rb;
     private Vector3 vertikalPosition;
+    private Vector3 scale;
 
     private void Awake()
     {
@@ -19,6 +20,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
+        scale = gameObject.transform.localScale;
+        //gameObject.transform.localScale = scale / 5;
         _rb = GetComponent<Rigidbody>();
         _isMovebol = true;
         vertikalPosition = transform.position;
@@ -56,23 +59,23 @@ public class PlayerMove : MonoBehaviour
     //    }
     //}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Edge")
-        {
-            _isMovebol = false;
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag == "Edge")
+    //    {
+    //        _isMovebol = false;
+    //    }
+    //}
 
 
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Edge")
-        {
-            _isMovebol = true;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.tag == "Edge")
+    //    {
+    //        _isMovebol = true;
+    //    }
+    //}
 
     private void Update()
     {
