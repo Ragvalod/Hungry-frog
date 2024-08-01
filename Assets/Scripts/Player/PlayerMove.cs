@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private bool _isMovebol;
+    
 
     private PlayerInput _playerInput; //inputSystem
     private Rigidbody _rb;
@@ -80,10 +81,15 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
 
+    }
+
+    private void FixedUpdate()
+    {
         Vector2 direction = _playerInput.Player.Move.ReadValue<Vector2>();
 
 
         Move(direction);
+        
     }
 
     //����� ������ (� ���������� �������)

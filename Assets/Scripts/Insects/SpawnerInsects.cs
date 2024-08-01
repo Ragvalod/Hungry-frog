@@ -5,12 +5,14 @@ public class SpawnerInsects : MonoBehaviour
 {
     public static SpawnerInsects Instance;
 
-    [SerializeField] GameObject[] _spawnMasOne;
-    [SerializeField] GameObject[] _spawnMasTwo;
+    [Header ("Первая группа точек спавна"), SerializeField] GameObject[] _spawnMasOne;
+    [Header("Вторая группа точек спавна"), SerializeField] GameObject[] _spawnMasTwo;
     [SerializeField] private GameObject[] _spawnPoints;
-    [SerializeField] private GameObject _insect;
-    [SerializeField] private float _spawnIntervalSec = 5;
-    [SerializeField] private float _scaleMin;
+    [SerializeField] private GameObject[] _insects;
+    [Header("Время между спавном насекомых"), SerializeField] private float _spawnIntervalSec;
+    [Header("Время на которое уменьшается время спавна следующей волны"), Range(0, 0.5f), SerializeField] private float _spawnDeferencelSec;
+    [Header("Время через которое уменьшается время между спавном"), Range(5, 20), SerializeField] private float _spawnDecrementlSec;
+    [Header(""), SerializeField] private float _scaleMin;
     [SerializeField] private float _scaleMax;
 
     private float _tempSpawnIntervalSec;
@@ -82,7 +84,7 @@ public class SpawnerInsects : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(20);
+            yield return new WaitForSeconds(_spawnDecrementlSec);
             if (_spawnIntervalSec > 0.2f)
             {
                 _spawnIntervalSec -= 0.1f;
@@ -93,8 +95,21 @@ public class SpawnerInsects : MonoBehaviour
 
     private void ResetTimeCorutine()
     {
-        _spawnIntervalSec = _tempSpawnIntervalSec - 0.5f;
+        _spawnIntervalSec = _tempSpawnIntervalSec - _spawnDeferencelSec;
        
+    }
+
+    private float _scale;
+    private int _typeInsect;
+
+    //Метод выбора типа насекомого в зависимости от размерв
+    private void TypeInsectToSize()
+    {
+        float playerSize = PlayerController.PlayerScaleMultiplicator();
+
+        if(playerSize > 1)
+            _typeInsect = Random.Range(1, 3);
+        _scale = Random.Range(_scaleMin, _scaleMax);
     }
 
     //Курутина которая каждый отрезок времени спавнит насекомое
@@ -105,11 +120,11 @@ public class SpawnerInsects : MonoBehaviour
             yield return new WaitForSeconds(_spawnIntervalSec); // Интервал в секундах
 
             Debug.Log("Spawn for second: " + _spawnIntervalSec);
-
+            TypeInsectToSize();
             RandDirection();
-            GameObject spawnedFish = Instantiate(_insect, GetRandomPointToMove().transform.position, Quaternion.identity);
+            GameObject spawnedFish = Instantiate(_insects[_typeInsect], GetRandomPointToMove().transform.position, Quaternion.identity);
             Vector3 spawnPoint = new Vector3(spawnedFish.transform.localScale.x, spawnedFish.transform.localScale.y, spawnedFish.transform.localScale.z);
-            spawnedFish.transform.localScale = spawnPoint * Random.Range(_scaleMin, _scaleMax);
+            spawnedFish.transform.localScale = spawnPoint * _scale;
         }
     }
 
