@@ -38,46 +38,8 @@ public class PlayerMove : MonoBehaviour
         _playerInput.Disable();
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
 
-    }
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-
-    //    if (collision.gameObject.tag == "Edge")
-    //    {
-    //        _isMovebol = false;
-    //    }
-    //}
-
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "Edge")
-    //    {
-    //        _isMovebol = true;
-    //    }
-    //}
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Edge")
-    //    {
-    //        _isMovebol = false;
-    //    }
-    //}
-
-
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Edge")
-    //    {
-    //        _isMovebol = true;
-    //    }
-    //}
-
+  
     private void Update()
     {
 
@@ -114,12 +76,15 @@ public class PlayerMove : MonoBehaviour
             //transform.LookAt(move * _moveSpeed);
         }
 
-        if(move !=  Vector3.zero)
+        if (move != Vector3.zero)
         {
+            
             Quaternion targetRotation = Quaternion.LookRotation(move);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
         }
+        
 
+            _rb.angularVelocity = Vector3.zero;
     }
 
 }

@@ -7,6 +7,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject[] _spawnPoints;
     [SerializeField] private GameObject[] _fishs;
     [SerializeField] private float _spawnIntervalSec = 5;
+    [SerializeField] private float _scaleMin;
+    [SerializeField] private float _scaleMax;
 
     public static Spawner Instance;
 
@@ -37,7 +39,9 @@ public class Spawner : MonoBehaviour
 
             GameObject spawnedFish = Instantiate(_fishs[Random.Range(0, _fishs.Length)], GetRandomPointToMove().transform.position, Quaternion.identity);
             Vector3 spawnPoint = new Vector3(spawnedFish.transform.localScale.x, spawnedFish.transform.localScale.y, spawnedFish.transform.localScale.z);
-            spawnedFish.transform.localScale = spawnPoint * Random.Range(0.5f, 5.0f);
+            float position_Y = spawnedFish.transform.localScale.y / 2;
+            spawnedFish.transform.position = new Vector3(spawnedFish.transform.position.x, position_Y, spawnedFish.transform.position.z);
+            spawnedFish.transform.localScale = spawnPoint * Random.Range(_scaleMin, _scaleMax);
         }
     }
 
