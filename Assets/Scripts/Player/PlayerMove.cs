@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private bool _isMovebol;
     
-
+   // private static Position position;
     private PlayerInput _playerInput; //inputSystem
     private Rigidbody _rb;
     private Vector3 vertikalPosition;
@@ -27,6 +28,8 @@ public class PlayerMove : MonoBehaviour
         _isMovebol = true;
         vertikalPosition = transform.position;
     }
+       
+
 
     private void OnEnable()
     {

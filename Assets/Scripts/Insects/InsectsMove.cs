@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class InsectsMove : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeedMin = 1;
-    [SerializeField] private float _moveSpeedMax = 100;
+    [SerializeField] private float _moveSpeedMin;
+    [SerializeField] private float _moveSpeedMax;
     [SerializeField] private float _insectScale;
 
     private Vector3 direction;
@@ -12,7 +12,7 @@ public class InsectsMove : MonoBehaviour
     private void Start()
     {
 
-        speed = Random.Range(10, 120);
+        speed = Random.Range(_moveSpeedMin, _moveSpeedMax);
         moveTo = SpawnerInsects.Instance.GetRandomPointToMove().transform.position;
         direction = moveTo - transform.position;
         direction.Normalize();

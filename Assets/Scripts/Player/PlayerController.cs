@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 _scale; //текущий размер player
     private static float scaleMultiplicator;
+    private static Vector3 scalePlaer;
     private float _scaleMultiplicatorIncrement;
     private float _scale_X;
 
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
         _scale = transform.localScale;
         transform.localScale = _scale * scaleMultiplicator;
+        scalePlaer = transform.localScale;
         _textScore.text = "0";
         _textNextLevel.text = _nextLevelCount.ToString();
 
@@ -57,9 +59,9 @@ public class PlayerController : MonoBehaviour
     }
 
     //Метод возвращающий имножитель размера лягушки
-    public static float PlayerScaleMultiplicator()
-    {
-        return scaleMultiplicator;
+    public static Vector3 PlayerScale()
+    {        
+        return scalePlaer;
     }
 
 
@@ -95,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
 
         transform.localScale = _scale * scaleMultiplicator;
-
+        scalePlaer = transform.localScale;
         if (isBig && _camera.Lens.FieldOfView < _cameraIncrementMax)
             _camera.Lens.FieldOfView += _cameraIncrement;
         else
