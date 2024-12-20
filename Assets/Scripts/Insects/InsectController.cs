@@ -21,16 +21,16 @@ public class InsectController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 0.5f);
             onTouched?.Invoke();
         }
     }
 
     public int PoitCurentInsect()
     {
-        int scale = transform.localScale.GetHashCode();
-        _pointsInsects = scale;
-        return scale;
+        int scales = transform.localScale.GetHashCode();
+        _pointsInsects = scales;
+        return scales;
     }
 
 }
